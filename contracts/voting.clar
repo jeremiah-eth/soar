@@ -1,4 +1,3 @@
-
 ;; ------------------------------------------------------------
 ;; YES / NO VOTING CONTRACT (Clarity 4)
 ;; ------------------------------------------------------------
@@ -8,9 +7,12 @@
 (define-data-var no-count uint u0)
 
 ;; Track who has already voted
-(define-map votes 
-    principal 
-    { choice: bool, timestamp: uint }
+(define-map votes
+    principal
+    {
+        choice: bool,
+        timestamp: uint,
+    }
 )
 
 ;; ------------------------------------------------------------
@@ -20,10 +22,10 @@
 ;; ------------------------------------------------------------
 (define-public (vote (choice bool))
     (let (
-          (sender tx-sender)
-          (previous-vote (map-get? votes sender))
-          (time stacks-block-time)
-         )
+            (sender tx-sender)
+            (previous-vote (map-get? votes sender))
+            (time stacks-block-time)
+        )
         (begin
             ;; If user has voted before, decrement their previous choice
             (if (is-some previous-vote)
@@ -37,7 +39,10 @@
             )
 
             ;; Record new vote
-            (map-set votes sender { choice: choice, timestamp: time })
+            (map-set votes sender {
+                choice: choice,
+                timestamp: time,
+            })
 
             ;; Increment counters for new choice
             (if choice
@@ -45,7 +50,10 @@
                 (var-set no-count (+ (var-get no-count) u1))
             )
 
-            (ok { voted: choice, at: time })
+            (ok {
+                voted: choice,
+                at: time,
+            })
         )
     )
 )
@@ -56,7 +64,7 @@
 (define-read-only (get-results)
     (ok {
         yes: (var-get yes-count),
-        no: (var-get no-count)
+        no: (var-get no-count),
     })
 )
 
