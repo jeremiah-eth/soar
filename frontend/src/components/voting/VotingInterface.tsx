@@ -11,6 +11,9 @@ import { useWallet } from "@/context/WalletContext";
 import ConnectButton from "@/components/layout/ConnectButton";
 import { useVoteTx } from "@/hooks/stacks/use-vote-tx";
 
+import ShareButton from "@/components/social/ShareButton";
+import RecentActivity from "./RecentActivity";
+
 export default function VotingInterface() {
     const { results, isLoading: resultsLoading } = useVoteResults();
     const { hasVoted, isLoading: userVoteLoading } = useUserVote();
@@ -22,56 +25,64 @@ export default function VotingInterface() {
     };
 
     if (resultsLoading) {
-        return <Skeleton className="w-full max-w-2xl mx-auto h-[400px]" />;
+        return <Skeleton className="w-full max-w-4xl mx-auto h-[400px]" />;
     }
 
     return (
-        <div className="space-y-8 w-full max-w-2xl mx-auto">
-            <QuestionHero />
+        <div className="w-full max-w-4xl mx-auto grid gap-8 md:grid-cols-3">
+            <div className="md:col-span-2 space-y-8">
+                <QuestionHero />
+                <Card>
+                    <CardContent className="pt-6 space-y-6">
+                        <ResultsBar yes={results.yes} no={results.no} />
 
-            <Card>
-                <CardContent className="pt-6 space-y-6">
-                    <ResultsBar yes={results.yes} no={results.no} />
-
-                    <div className="pt-4 border-t">
-                        {!isSignedIn ? (
-                            <div className="text-center space-y-4 py-4">
-                                <p className="text-muted-foreground">Connect your wallet to vote</p>
-                                <div className="flex justify-center">
-                                    <ConnectButton />
+                        <div className="pt-4 border-t">
+                            {!isSignedIn ? (
+                                <div className="text-center space-y-4 py-4">
+                                    <p className="text-muted-foreground">Connect your wallet to vote</p>
+                                    <div className="flex justify-center">
+                                        <ConnectButton />
+                                    </div>
                                 </div>
-                            </div>
-                        ) : hasVoted ? (
-                            <div className="text-center py-6 bg-muted/30 rounded-lg border border-dashed">
-                                <p className="text-xl font-semibold mb-2">
-                                    You voted {hasVoted.choice ? <span className="text-vote-yes">YES</span> : <span className="text-vote-no">NO</span>}
-                                </p>
-                                <p className="text-sm text-muted-foreground">
-                                    Feel strongly differently? You can change your vote below.
-                                </p>
-                            </div>
-                        ) : null}
+                            ) : hasVoted ? (
+                                <div className="space-y-4">
+                                    <div className="text-center py-6 bg-muted/30 rounded-lg border border-dashed">
+                                        <p className="text-xl font-semibold mb-2">
+                                            You voted {hasVoted.choice ? <span className="text-vote-yes">YES</span> : <span className="text-vote-no">NO</span>}
+                                        </p>
+                                        <p className="text-sm text-muted-foreground">
+                                            Feel strongly differently? You can change your vote below.
+                                        </p>
+                                    </div>
+                                    <ShareButton />
+                                </div>
+                            ) : null}
 
-                        {/* Voting Actions - Always visible if signed in, or if signed out (disabled) */}
-                        {isSignedIn && (
-                            <div className="grid grid-cols-2 gap-4 mt-6">
-                                <VoteAction
-                                    choice={true}
-                                    onVote={() => handleVote(true)}
-                                    isLoading={isVoting}
-                                    disabled={!!hasVoted}
-                                />
-                                <VoteAction
-                                    choice={false}
-                                    onVote={() => handleVote(false)}
-                                    isLoading={isVoting}
-                                    disabled={!!hasVoted}
-                                />
-                            </div>
-                        )}
-                    </div>
-                </CardContent>
-            </Card>
+                            {/* Voting Actions */}
+                            {isSignedIn && (
+                                <div className="grid grid-cols-2 gap-4 mt-6">
+                                    <VoteAction
+                                        choice={true}
+                                        onVote={() => handleVote(true)}
+                                        isLoading={isVoting}
+                                        disabled={!!hasVoted}
+                                    />
+                                    <VoteAction
+                                        choice={false}
+                                        onVote={() => handleVote(false)}
+                                        isLoading={isVoting}
+                                        disabled={!!hasVoted}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+
+            <div className="md:col-span-1 space-y-6">
+                <RecentActivity />
+            </div>
         </div>
     );
 }
