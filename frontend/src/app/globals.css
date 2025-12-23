@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+@theme {
+  --color-soar-blue: #3b82f6;
+  --color-vote-yes: #22c55e;
+  --color-vote-no: #ef4444;
+  --color-background: #ffffff;
+  --color-foreground: #0f172a;
+}
+
+/* Base styles */
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
