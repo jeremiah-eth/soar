@@ -2,11 +2,11 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { fetchCallReadOnlyFunction, cvToValue, standardPrincipalCV } from "@stacks/transactions";
-import { StacksMainnet, StacksTestnet } from "@stacks/network";
+import { STACKS_TESTNET } from "@stacks/network";
 import { CONTRACT_ADDRESS, CONTRACT_NAME } from "@/lib/constants";
 
 // Helper to determine network - defaulting to Testnet for dev
-const network = new StacksTestnet();
+const network = STACKS_TESTNET;
 
 export function useVoteResults() {
     const [results, setResults] = useState({ yes: 0, no: 0 });

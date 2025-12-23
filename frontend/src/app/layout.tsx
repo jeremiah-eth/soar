@@ -18,8 +18,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Soar Vote",
-  description: "Decentralized Voting on Stacks",
+  title: "Soar Vote | Decentralized Governance",
+  description: "Cast your vote on the Stacks blockchain. secure, transparent, and decentralized governance for the Soar protocol.",
+  openGraph: {
+    title: "Soar Vote",
+    description: "Decentralized Voting on Stacks",
+    type: "website",
+    locale: "en_US",
+    siteName: "Soar Vote",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Soar Vote",
+    description: "Participate in decentralized governance on Stacks.",
+    creator: "@soar_protocol",
+  },
 };
 
 export default function RootLayout({

@@ -1,14 +1,14 @@
 "use client";
 
 import { useConnect } from "@stacks/connect-react";
-import { StacksTestnet } from "@stacks/network";
+import { STACKS_TESTNET } from "@stacks/network";
 import { boolCV } from "@stacks/transactions";
 import { CONTRACT_ADDRESS, CONTRACT_NAME } from "@/lib/constants";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import confetti from "canvas-confetti";
 
-const network = new StacksTestnet();
+const network = STACKS_TESTNET;
 
 export function useVoteTx() {
     const { doContractCall } = useConnect();

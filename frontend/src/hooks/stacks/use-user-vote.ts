@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import { fetchCallReadOnlyFunction, cvToValue, standardPrincipalCV } from "@stacks/transactions";
-import { StacksTestnet } from "@stacks/network";
+import { STACKS_TESTNET } from "@stacks/network";
 import { CONTRACT_ADDRESS, CONTRACT_NAME } from "@/lib/constants";
 import { useWallet } from "@/context/WalletContext";
 
-const network = new StacksTestnet();
+const network = STACKS_TESTNET;
 
 export function useUserVote() {
     const { userData, isSignedIn } = useWallet();
