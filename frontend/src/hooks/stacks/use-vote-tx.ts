@@ -1,6 +1,6 @@
 "use client";
 
-import { useConnect } from "@stacks/connect";
+import { useConnect } from "@stacks/connect-react";
 import { StacksTestnet } from "@stacks/network";
 import { boolCV } from "@stacks/transactions";
 import { CONTRACT_ADDRESS, CONTRACT_NAME } from "@/lib/constants";

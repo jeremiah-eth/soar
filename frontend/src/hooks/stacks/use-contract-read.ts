@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { callReadOnlyFunction, cvToValue, standardPrincipalCV } from "@stacks/transactions";
+import { fetchCallReadOnlyFunction, cvToValue, standardPrincipalCV } from "@stacks/transactions";
 import { StacksMainnet, StacksTestnet } from "@stacks/network";
 import { CONTRACT_ADDRESS, CONTRACT_NAME } from "@/lib/constants";
 
@@ -14,7 +14,7 @@ export function useVoteResults() {
 
     const fetchResults = useCallback(async () => {
         try {
-            const response = await callReadOnlyFunction({
+            const response = await fetchCallReadOnlyFunction({
                 contractAddress: CONTRACT_ADDRESS,
                 contractName: CONTRACT_NAME,
                 functionName: "get-results",

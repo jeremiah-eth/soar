@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { callReadOnlyFunction, cvToValue, standardPrincipalCV } from "@stacks/transactions";
+import { fetchCallReadOnlyFunction, cvToValue, standardPrincipalCV } from "@stacks/transactions";
 import { StacksTestnet } from "@stacks/network";
 import { CONTRACT_ADDRESS, CONTRACT_NAME } from "@/lib/constants";
 import { useWallet } from "@/context/WalletContext";
@@ -23,7 +23,7 @@ export function useUserVote() {
             setIsLoading(true);
             try {
                 const address = userData.profile.stxAddress.testnet;
-                const response = await callReadOnlyFunction({
+                const response = await fetchCallReadOnlyFunction({
                     contractAddress: CONTRACT_ADDRESS,
                     contractName: CONTRACT_NAME,
                     functionName: "has-voted",
