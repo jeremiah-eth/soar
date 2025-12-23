@@ -6,6 +6,8 @@ import ConnectButton from "./ConnectButton";
 import UserDropdown from "./UserDropdown";
 import { Icons } from "@/components/ui/icons";
 
+import { ModeToggle } from "@/components/mode-toggle";
+
 export default function Header() {
     const { isSignedIn } = useWallet();
 
@@ -22,6 +24,7 @@ export default function Header() {
                 </div>
 
                 <nav className="flex items-center gap-4">
+                    <ModeToggle />
                     {isSignedIn ? <UserDropdown /> : <ConnectButton />}
                 </nav>
             </div>
