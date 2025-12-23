@@ -12,9 +12,12 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import { useBns } from "@/hooks/stacks/use-bns";
+
 // Note: Ensure @radix-ui/react-dropdown-menu is installed or install it next
 export default function UserDropdown() {
     const { userData, userSession } = useWallet();
+    const { name } = useBns();
 
     const handleDisconnect = () => {
         userSession.signUserOut();
@@ -24,12 +27,13 @@ export default function UserDropdown() {
     // Shorten address helper
     const address = userData?.profile?.stxAddress?.testnet || ""; // Defaulting to testnet for now
     const shortAddress = address ? `${address.slice(0, 4)}...${address.slice(-4)}` : "";
+    const displayName = name || shortAddress;
 
     return (
         <div className="flex items-center gap-2">
             <Button variant="outline" className="gap-2">
                 <Icons.wallet className="h-4 w-4 text-soar-blue" />
-                <span className="font-mono">{shortAddress}</span>
+                <span className="font-mono">{displayName}</span>
             </Button>
             <Button variant="ghost" size="icon" onClick={handleDisconnect} title="Disconnect">
                 <Icons.logout className="h-4 w-4" />
