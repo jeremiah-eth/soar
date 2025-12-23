@@ -9,15 +9,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useWallet } from "@/context/WalletContext";
 import ConnectButton from "@/components/layout/ConnectButton";
+import { useVoteTx } from "@/hooks/stacks/use-vote-tx";
 
 export default function VotingInterface() {
     const { results, isLoading: resultsLoading } = useVoteResults();
     const { hasVoted, isLoading: userVoteLoading } = useUserVote();
     const { isSignedIn } = useWallet();
+    const { castVote, isVoting } = useVoteTx();
 
     const handleVote = (choice: boolean) => {
-        // Transaction logic will be added in next commits
-        console.log("Voting:", choice);
+        castVote(choice);
     };
 
     if (resultsLoading) {
@@ -57,12 +58,14 @@ export default function VotingInterface() {
                                 <VoteAction
                                     choice={true}
                                     onVote={() => handleVote(true)}
-                                    isLoading={false}
+                                    isLoading={isVoting}
+                                    disabled={!!hasVoted}
                                 />
                                 <VoteAction
                                     choice={false}
                                     onVote={() => handleVote(false)}
-                                    isLoading={false}
+                                    isLoading={isVoting}
+                                    disabled={!!hasVoted}
                                 />
                             </div>
                         )}
