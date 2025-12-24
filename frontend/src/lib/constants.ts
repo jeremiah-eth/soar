@@ -8,5 +8,5 @@ export const appDetails = {
     icon: "https://soar-vote.vercel.app/logo.png", // Placeholder
 };
 
-export const CONTRACT_ADDRESS = "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM"; // Devnet/Testnet deployer
+export const CONTRACT_ADDRESS = "SP95KYNT2QWA2EXJS2WZT666ZVXDA4QV4AZZ2T5G"; // Mainnet deployer
 export const CONTRACT_NAME = "voting";
